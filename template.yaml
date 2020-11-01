@@ -1,0 +1,107 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  WeatherApp
+
+  Sample SAM Template for WeatherApp
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Runtime: java11
+    MemorySize: 512
+    Timeout: 25
+
+Resources:
+  WeatherFileBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+
+  WeatherTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: locationName
+        Type: String
+
+  FanOutTopic:
+    Type: AWS::SNS::Topic
+
+  SQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}
+
+  QueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Id: SQSPolicy
+        Version: '2012-10-17'
+        Statement:
+          - Sid: Allow-User-SendMessage
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - sqs:SendMessage
+              - sqs:GetQueueUrl
+            Resource: !Sub arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:${AWS::StackName}-${AWS::AccountId}-${AWS::Region}
+      Queues:
+        - !Ref SQSQueue
+
+  BulkEventsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: bulk-events/target/lambda.zip
+      Handler: tw.idv.stevenang.pipeline.bulk.BulkEventsLambda::handlerRequest
+      Environment:
+        Variables:
+          FAN_OUT_TOPIC: !Ref FanOutTopic
+          QUEUE_NAME: !GetAtt SQSQueue.QueueName
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Sub ${AWS::StackName}-${AWS::AccountId}-${AWS::Region}-start
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt FanOutTopic.TopicName
+      Events:
+        S3Events:
+          Type: S3
+          Properties:
+            Bucket: !Ref WeatherFileBucket
+            Events: s3:ObjectCreated:*
+
+  SingleEventLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: single-event/target/lambda.zip
+      Handler: tw.idv.stevenang.pipeline.single.SingleEventLambda::handlerRequest
+      Environment:
+        Variables:
+          LOCATIONS_TABLE: !Ref WeatherTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref WeatherTable
+      Events:
+        SNSEvents:
+          Type: SNS
+          Properties:
+            Topic: !Ref FanOutTopic
+
+  SQSEventLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: sqs-event/target/lambda.zip
+      Handler: tw.idv.stevenang.pipeline.single.SQSEventLambda::handlerRequest
+      Environment:
+        Variables:
+          DB_URL: jdbc:mysql://lambdadb-1.ce6p8kot3zkh.us-east-1.rds.amazonaws.com:3306/lambdadb
+          DB_USER: db_user
+          DB_Password: a1DcN9q+
+          QUEUE_Name: !GetAtt SQSQueue.QueueName
+      Events:
+        SQSEvents:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt SQSQueue.Arn
+            BatchSize: 5

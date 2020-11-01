@@ -1,0 +1,5 @@
+# Project exclude paths
+/bulk-events/target/
+/common-code/target/
+/single-event/target/
+/sqs-event/target/

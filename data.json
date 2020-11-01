@@ -1,0 +1,65 @@
+[
+  {
+    "locationName": "Oakland, CA",
+    "temperature": 23,
+    "timestamp": 1564428897,
+    "longitute": 40,
+    "latitute": -70
+  },
+  {
+    "locationName": "Tokyo, Japan",
+    "temperature": 23,
+    "timestamp": 1564428898,
+    "longitute": 50,
+    "latitute": -70
+  },
+  {
+    "locationName": "Taipei, Taiwan",
+    "temperature": 10,
+    "timestamp": 1564428899,
+    "longitute": -40,
+    "latitute": -70
+  },
+  {
+    "locationName": "San Francisco, CA",
+    "temperature": 23,
+    "timestamp": 1564428897,
+    "longitute": 40,
+    "latitute": -70
+  },
+  {
+    "locationName": "Kyoto, Japan",
+    "temperature": 23,
+    "timestamp": 1564428898,
+    "longitute": 50,
+    "latitute": -70
+  },
+  {
+    "locationName": "Makati, Philippines",
+    "temperature": 10,
+    "timestamp": 1564428899,
+    "longitute": -40,
+    "latitute": -70
+  },
+  {
+    "locationName": "Los Angeles, CA",
+    "temperature": 23,
+    "timestamp": 1564428897,
+    "longitute": 40,
+    "latitute": -70
+  },
+  {
+    "locationName": "Nara, Japan",
+    "temperature": 23,
+    "timestamp": 1564428898,
+    "longitute": 50,
+    "latitute": -70
+  },
+  {
+    "locationName": "Taguig, Philippines",
+    "temperature": 10,
+    "timestamp": 1564428899,
+    "longitute": -40,
+    "latitute": -70
+  }
+]

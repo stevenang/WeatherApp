@@ -1,0 +1,34 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>tw.idv.stevenang</groupId>
+        <artifactId>WeatherApp</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>common-code</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sql2o</groupId>
+            <artifactId>sql2o</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>reproducible-build-maven-plugin</artifactId>
+                <version>0.10</version>
+                <groupId>io.github.zlika</groupId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common-code" />
+        <module name="single-event" />
+        <module name="sqs-event" />
+        <module name="bulk-events" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bulk-events" target="1.8" />
+      <module name="common-code" target="1.8" />
+      <module name="HelloWorld" target="1.8" />
+      <module name="HelloWorld (1)" target="1.8" />
+      <module name="HelloWorld (2)" target="1.8" />
+      <module name="single-event" target="1.8" />
+      <module name="sqs-event" target="1.8" />
+      <module name="WeatherApp" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

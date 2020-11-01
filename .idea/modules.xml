@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/WeatherApp.iml" filepath="$PROJECT_DIR$/WeatherApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bulk-events/bulk-events.iml" filepath="$PROJECT_DIR$/bulk-events/bulk-events.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-code/common-code.iml" filepath="$PROJECT_DIR$/common-code/common-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/single-event/single-event.iml" filepath="$PROJECT_DIR$/single-event/single-event.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqs-event/sqs-event.iml" filepath="$PROJECT_DIR$/sqs-event/sqs-event.iml" />
+    </modules>
+  </component>
+</project>
